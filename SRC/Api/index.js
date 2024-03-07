@@ -878,6 +878,27 @@ const paymentFirst = payload => {
       throw e;
     });
 };
+const DailyCoins = payload => {
+  console.log('DailyCoin ', payload.data);
+
+  const request = `/add-coins`;
+  const header = {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${payload.Auth}`,
+    },
+  };
+  return axios
+    .post(request, payload.data, header)
+    .then(({data, status}) => {
+      return status === 200 || status === 201 ? data : null;
+    })
+    .catch(e => {
+      console.log('in add-coins', e);
+      throw e;
+    });
+};
 
 const confirm_payment = payload => {
   console.log('Add tO confirm_payment ', payload.data);
@@ -905,6 +926,28 @@ const BlockUser = payload => {
   console.log('Add tO confirm_payment======== ', payload);
 
   const request = `/block_user`;
+  const header = {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${payload.Auth}`,
+    },
+  };
+  return axios
+    .post(request, payload.data, header)
+    .then(({data, status}) => {
+      return status === 200 || status === 201 ? data : null;
+    })
+    .catch(e => {
+      console.log('in catch register', e);
+      throw e;
+    });
+};
+
+const DeleteUser = payload => {
+  console.log('Add tO confirm_payment======== ', JSON.stringify(payload));
+
+  const request = `/delete-post`;
   const header = {
     headers: {
       Accept: 'application/json',
@@ -968,6 +1011,8 @@ export {
   reportVideoDetail,
   PayTipCoin,
   Onoffcheck,
+  DailyCoins,
   deleteAcc,
   BlockUser,
+  DeleteUser,
 };

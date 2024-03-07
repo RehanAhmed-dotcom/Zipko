@@ -487,6 +487,8 @@ PODS:
   - react-native-agora (3.7.0):
     - AgoraRtcEngine_iOS (= 3.7.0)
     - React-Core
+  - react-native-blob-util (0.19.8):
+    - React-Core
   - react-native-camera (4.2.1):
     - React-Core
     - react-native-camera/RCT (= 4.2.1)
@@ -513,6 +515,8 @@ PODS:
     - React
   - react-native-mov-to-mp4 (0.2.2):
     - React
+  - react-native-pdf (6.7.4):
+    - React-Core
   - react-native-safe-area-context (4.4.1):
     - RCT-Folly
     - RCTRequired
@@ -723,10 +727,12 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-agora (from `../node_modules/react-native-agora`)
+  - react-native-blob-util (from `../node_modules/react-native-blob-util`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-create-thumbnail (from `../node_modules/react-native-create-thumbnail`)
   - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
   - react-native-mov-to-mp4 (from `../node_modules/react-native-mov-to-mp4`)
+  - react-native-pdf (from `../node_modules/react-native-pdf`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -854,6 +860,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-agora:
     :path: "../node_modules/react-native-agora"
+  react-native-blob-util:
+    :path: "../node_modules/react-native-blob-util"
   react-native-camera:
     :path: "../node_modules/react-native-camera"
   react-native-create-thumbnail:
@@ -862,6 +870,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fbsdk"
   react-native-mov-to-mp4:
     :path: "../node_modules/react-native-mov-to-mp4"
+  react-native-pdf:
+    :path: "../node_modules/react-native-pdf"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-slider:
@@ -989,10 +999,12 @@ SPEC CHECKSUMS:
   React-jsinspector: 60769e5a0a6d4b32294a2456077f59d0266f9a8b
   React-logger: 1623c216abaa88974afce404dc8f479406bbc3a0
   react-native-agora: 579dcc5ff5bd47ba7f450e0d9e089aad52dfa5e2
+  react-native-blob-util: 26f1fb0c91f2b437380d4f3875769a7c3e06080e
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-create-thumbnail: 94e68f6cc050a870f830352d1a924c1e8d38b52f
   react-native-fbsdk: 8e92c7a334fd8d9c2b5d8b8fcd7ae2c314161099
   react-native-mov-to-mp4: a04f17590618523487ab5d71c9310c6c4a7aaf99
+  react-native-pdf: 79aa75e39a80c1d45ffe58aa500f3cf08f267a2e
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   react-native-slider: 7d19220da2f2ae7cbb9aa80127cb73c597fa221f
   react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457

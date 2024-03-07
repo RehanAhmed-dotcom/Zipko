@@ -22,6 +22,7 @@ import {
   ShareResponse,
   ViewDetail,
   coinTransper,
+  DeleteUser,
   reportVideoDetail,
   viewFileDetail,
   view_all_comment,
@@ -51,7 +52,7 @@ const PlayVideoScreen = ({navigation, route}) => {
   // else {
   const {ply, typ} = route.params;
   // }
-
+console.log("route",route.params)
   // console.log('++++++++++', ply);
   const refRBSheet = useRef();
   // console.log('----hhhhhhhh-------', typ);
@@ -76,6 +77,7 @@ const PlayVideoScreen = ({navigation, route}) => {
   const [modalVisible, setmodalVisible] = useState(false);
   const [modalMenu, setmodalMenu] = useState(false);
   const [warblock, setwarblock] = useState(false);
+  const [wardelete, setwardelete] = useState(false);
   const [commentarr1, setcommentarr1] = useState([]);
   const [likecount1, setlikecount1] = useState(0);
   const [commentcount1, setcommentcount1] = useState(0);
@@ -97,6 +99,19 @@ const PlayVideoScreen = ({navigation, route}) => {
     BlockUser({Auth: userData.userdata.api_token, data: data})
       .then(res => {
         // console.log('first======', res);
+        navigation.navigate('BottomTab');
+      })
+      .catch(err => {
+        console.log('Error of Response Question', err);
+      });
+  };
+  const delete_User = () => {
+    const data = new FormData();
+    data.append('id', ply.id);
+    DeleteUser({Auth: userData.userdata.api_token, data: data})
+      .then(res => {
+        console.log('delete user', res);
+        
         navigation.navigate('BottomTab');
       })
       .catch(err => {
@@ -742,7 +757,26 @@ const PlayVideoScreen = ({navigation, route}) => {
               </TouchableOpacity>
             </View>
           </View>
-        ) : null}
+        ) : wardelete?
+        <View style={Styles.verifiyview}>
+            <Text style={Styles.extbutton}>You Want To Delete this User</Text>
+            <View style={Styles.tovieconfirmuch}>
+              <TouchableOpacity
+                onPress={() => {
+                  setwardelete(false);
+                  delete_User();
+                }}
+                style={Styles.touch}>
+                <Text style={Styles.extbutton}>Yes</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setwardelete(false)}
+                style={Styles.touch}>
+                <Text style={Styles.extbutton}>No</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        :null}
         {modalMenu ? (
           <View
             style={{
@@ -750,7 +784,7 @@ const PlayVideoScreen = ({navigation, route}) => {
               bottom: wp(30),
               paddingVertical: 10,
               width: '35%',
-              height: '10%',
+              height: '20%',
               backgroundColor: Colors.white,
               borderRadius: 10,
               position: 'absolute',
@@ -772,7 +806,7 @@ const PlayVideoScreen = ({navigation, route}) => {
                   setmodalMenu(false);
                 }}
                 style={{
-                  height: '50%',
+                  height: '33%',
                   justifyContent: 'center',
                   borderBottomWidth: 1,
                   borderBottomColor: 'grey',
@@ -783,10 +817,27 @@ const PlayVideoScreen = ({navigation, route}) => {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
+                  setwardelete(true);
+                  setmodalMenu(false);
+                }}
+                style={{
+                  height: '33%',
+                  justifyContent: 'center',
+                  borderBottomWidth: 1,
+                  borderBottomColor: 'grey',
+                }}>
+                <Text style={[Styles.extbutton, {textAlign: 'center'}]}>
+                  Delete Video
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
                   setmodalMenu(false);
                   setmodalVisible(true);
                 }}
-                style={{height: '50%', justifyContent: 'center'}}>
+                style={{
+                  height: '33%',
+                   justifyContent: 'center'}}>
                 <Text style={[Styles.extbutton, {textAlign: 'center'}]}>
                   Report Video
                 </Text>

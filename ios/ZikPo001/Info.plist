@@ -71,7 +71,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>This app require access to the camera for uploading question.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>This app require access to the location for tracking location.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app require access to the microphone for recording question.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

@@ -10,11 +10,13 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
+import moment from 'moment';
 import {
   confirm_payment,
   getCoinsAcrtiveinfo,
   paymentFirst,
   postNewCoins,
+  DailyCoins,
   Onoffcheck,
 } from '../../Api';
 import {useDispatch, useSelector} from 'react-redux';
@@ -26,6 +28,7 @@ import RButton from '../../Components/RButton';
 import Styles from './Style';
 import {useStripe} from '@stripe/stripe-react-native';
 import {userAuthorize} from '../../redux/actions';
+import { Alert } from 'react-native';
 
 const Coins = ({navigation}) => {
   const dispatch = useDispatch();
@@ -106,6 +109,9 @@ const Coins = ({navigation}) => {
     });
     return unsubscribe;
   }, [navigation]);
+  useEffect(()=>{
+
+  })
   const getYourIngo = async () => {
     await getCoinsAcrtiveinfo({Auth: userData.userdata.api_token})
       .then(res => {
@@ -201,6 +207,21 @@ const Coins = ({navigation}) => {
         console.log('Error of Post Question', err.response);
       });
   };
+  // console.log("moment",)
+  const GiftCoin = ()=>{
+DailyCoins({Auth: userData.userdata.api_token,date:moment().format("YYYY-MM-DD")})
+.then(res => {
+  console.log('Response of daily coin', res);
+  if (res.status == 'success') {
+  Alert.alert("Purchased",res.message);
+  getYourIngo();
+  }
+})
+.catch(error => {
+  getYourIngo();
+  console.log('Error in post Coin', error.response.message);
+});
+  }
   return (
     <ImageBackground
       source={require('../../Assests/bg1.png')}
@@ -216,7 +237,7 @@ const Coins = ({navigation}) => {
               <TouchableOpacity
                 onPress={() => {
                   datas == 0
-                    ? alert('Feature coming soon')
+                    ? GiftCoin()
                     : setpurchasecoin(true);
                 }}
                 style={Styles.touchpurch}>
