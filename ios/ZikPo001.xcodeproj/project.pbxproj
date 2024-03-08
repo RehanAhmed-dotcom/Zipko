@@ -509,7 +509,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = QZ7U32Y4TZ;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ZikPo001/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -541,7 +541,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = QZ7U32Y4TZ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ZikPo001/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

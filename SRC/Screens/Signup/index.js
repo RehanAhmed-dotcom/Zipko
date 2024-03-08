@@ -1,4 +1,10 @@
-import { Emailverified_signup, checkUserName, getExperties, getandCreateExperties, registerUser } from '../../Api';
+import {
+  Emailverified_signup,
+  checkUserName,
+  getExperties,
+  getandCreateExperties,
+  registerUser,
+} from '../../Api';
 import {
   FlatList,
   Image,
@@ -8,8 +14,9 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import Colors from '../../Colors';
 import Header from '../../Components/Header';
@@ -18,11 +25,9 @@ import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/Key
 import Loder from '../../Components/Loder';
 import RButton from '../../Components/RButton';
 import Styles from './Style';
-import { userAuthorize } from '../../redux/actions';
+import {userAuthorize} from '../../redux/actions';
 
-const Signup = ({ navigation }) => {
-
-
+const Signup = ({navigation}) => {
   const dispatch = useDispatch();
   // const [phone, setphone] = useState('');
   const [email, setemail] = useState('');
@@ -36,11 +41,22 @@ const Signup = ({ navigation }) => {
   const [tagdatabase, settagdatabase] = useState([]);
   const [loding, setloding] = useState(false);
   const [allSemilar, setallSemilar] = useState([]);
+  const [check, setCheck] = useState(false);
+  const terms = {
+    id: 13,
+    name: 'Terms of Services',
+    pdf_file: 'https://sodhnoos.com/terms.pdf',
+  };
+  const policy = {
+    id: 13,
+    name: 'Privacy Policies',
+    pdf_file: 'https://sodhnoos.com/privacy.pdf',
+  };
   const color = [
-    { bac: 'rgba(6, 146, 203, 0.3)', col: '#0691CB' },
-    { bac: 'rgba(128, 81, 205 ,0.3)', col: '#8051CD' },
-    { bac: 'rgba(76 ,175 ,80 ,0.3)', col: '#4CAF50' },
-    { bac: 'rgba(245 ,0 ,0 ,0.3)', col: '#F50000' },
+    {bac: 'rgba(6, 146, 203, 0.3)', col: '#0691CB'},
+    {bac: 'rgba(128, 81, 205 ,0.3)', col: '#8051CD'},
+    {bac: 'rgba(76 ,175 ,80 ,0.3)', col: '#4CAF50'},
+    {bac: 'rgba(245 ,0 ,0 ,0.3)', col: '#F50000'},
   ];
   useEffect(() => {
     getAllExperties();
@@ -62,7 +78,7 @@ const Signup = ({ navigation }) => {
   };
 
   const addnewExperties = () => {
-    getandCreateExperties({ nam: expertise })
+    getandCreateExperties({nam: expertise})
       .then(res => {
         if (res.status == 'success') {
           console.log('Resonse of new Experties', res);
@@ -84,32 +100,35 @@ const Signup = ({ navigation }) => {
       pass == '' ||
       conpass == ''
     ) {
-      alert('All Field is Required');
+      alert('All Fields are Required');
       return false;
     } else if (idstag.length == 0) {
       alert('Experties is Required');
+      return false;
+    } else if (!check) {
+      alert('Check Terms and privacy links');
       return false;
     } else {
       return true;
     }
   };
-  const [nameErr, setnameErr] = useState('')
+  const [nameErr, setnameErr] = useState('');
   const checkFullName = () => {
     setnameErr('');
     const dat = new FormData();
     dat.append('username', usernme);
-    checkUserName({ data: dat })
+    checkUserName({data: dat})
       .then(res => {
         if (res.status == 'success') {
-          console.log(';>>', res)
-          setnameErr('ok')
+          console.log(';>>', res);
+          setnameErr('ok');
         }
-      }).catch(error => {
-        console.log(":::", error.response)
-        setnameErr('no')
-
+      })
+      .catch(error => {
+        console.log(':::', error.response);
+        setnameErr('no');
       });
-  }
+  };
 
   const emailVarificatione = () => {
     setloding(true);
@@ -117,7 +136,7 @@ const Signup = ({ navigation }) => {
     const dat = new FormData();
     dat.append('email', email);
 
-    Emailverified_signup({ data: dat })
+    Emailverified_signup({data: dat})
       .then(res => {
         console.log('Response of Email Varification', res);
         if (res.status == 'success') {
@@ -130,7 +149,6 @@ const Signup = ({ navigation }) => {
               password: pass,
               confirm: conpass,
               email: email,
-
             },
           });
         } else {
@@ -145,14 +163,12 @@ const Signup = ({ navigation }) => {
           alert(`${error?.response?.data?.message}`);
         }
       });
-
   };
 
   const register = () => {
     setloding(true);
     if (validate()) {
-      emailVarificatione()
-
+      emailVarificatione();
     }
     {
       setloding(false);
@@ -232,7 +248,7 @@ const Signup = ({ navigation }) => {
       }
     }
   };
-  const listtag = ({ item }) => (
+  const listtag = ({item}) => (
     <TouchableOpacity
       onPress={() => {
         setallSemilar([]), setexpertise(''), addTagtoList(item);
@@ -242,10 +258,10 @@ const Signup = ({ navigation }) => {
     </TouchableOpacity>
   );
 
-  const hashestab = ({ item }) => (
+  const hashestab = ({item}) => (
     <View style={Styles.haviewspace}>
-      <View style={[Styles.haview, { backgroundColor: item.color.bac }]}>
-        <Text style={[Styles.txt33, { color: item.color.col }]}>
+      <View style={[Styles.haview, {backgroundColor: item.color.bac}]}>
+        <Text style={[Styles.txt33, {color: item.color.col}]}>
           #{item.tagtext}
         </Text>
         <TouchableOpacity
@@ -254,7 +270,7 @@ const Signup = ({ navigation }) => {
           <Image
             source={require('../../Assests/cross.png')}
             resizeMode="contain"
-            style={[Styles.crossimg, { tintColor: item.color.col }]}
+            style={[Styles.crossimg, {tintColor: item.color.col}]}
           />
         </TouchableOpacity>
       </View>
@@ -267,8 +283,8 @@ const Signup = ({ navigation }) => {
       style={Styles.image}>
       <Header navigation={navigation} left="true" title="Register" />
 
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-        <ScrollView style={{ flex: 1 }}>
+      <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
+        <ScrollView style={{flex: 1}}>
           <View style={Styles.innercontainer}>
             <View style={Styles.hedinfoview}>
               <Text style={Styles.texthed}>PERSONAL DETAIL</Text>
@@ -288,7 +304,11 @@ const Signup = ({ navigation }) => {
               onchang={txt => setusernme(txt)}
               end={() => checkFullName()}
             />
-            {nameErr == 'no' ? <Text style={{ fontSize: 10, color: 'red' }}>Username already exists.</Text> : null}
+            {nameErr == 'no' ? (
+              <Text style={{fontSize: 10, color: 'red'}}>
+                Username already exists.
+              </Text>
+            ) : null}
             <Input
               limag={require('../../Assests/msg.png')}
               // rimg={require('../../Assests/innerwelcom.png')}
@@ -341,13 +361,13 @@ const Signup = ({ navigation }) => {
                 searchExpertiseFilters(txt);
                 setexpertise(txt);
               }}
-            // onchang={txt =>
-            //   txt
-            //     ? containsWhitespace(txt)
-            //       ? addTag(txt)
-            //       : setexpertise(txt)
-            //     : setexpertise(txt)
-            // }
+              // onchang={txt =>
+              //   txt
+              //     ? containsWhitespace(txt)
+              //       ? addTag(txt)
+              //       : setexpertise(txt)
+              //     : setexpertise(txt)
+              // }
             />
             {allSemilar.length > 0 ? (
               <View style={Styles.flatlisviewlist}>
@@ -362,16 +382,53 @@ const Signup = ({ navigation }) => {
               </View>
             ) : null}
             <RButton
-              onpress={() => nameErr == 'no' ? alert("Change User Name") : register()}
+              onpress={() =>
+                nameErr == 'no' ? alert('Change User Name') : register()
+              }
               title="CONTINUE"
               color={Colors.black}
             />
+            {/* <Text>hello</Text> */}
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 10,
+                // backgroundColor: 'red',
+                width: '85%',
+              }}>
+              <TouchableOpacity onPress={() => setCheck(!check)}>
+                <Image
+                  source={
+                    check
+                      ? require('../../Assests/Check.png')
+                      : require('../../Assests/Uncheck.png')
+                  }
+                  resizeMode="contain"
+                  style={[Styles.crossimg, {width: wp(4), height: wp(4)}]}
+                />
+              </TouchableOpacity>
+
+              <Text style={{marginLeft: 10}}>
+                By signing up, you agreeing to our{' '}
+                <Text
+                  onPress={() => navigation.navigate('CityPdf', {item: terms})}
+                  style={{fontWeight: '600'}}>
+                  Terms & Condition
+                </Text>{' '}
+                and{' '}
+                <Text
+                  onPress={() => navigation.navigate('CityPdf', {item: policy})}
+                  style={{fontWeight: '600'}}>
+                  Privacy Policy
+                </Text>
+              </Text>
+            </View>
           </View>
 
           <Loder lodertyp={loding} />
         </ScrollView>
       </KeyboardAvoidingView>
-    </ImageBackground >
+    </ImageBackground>
   );
 };
 
