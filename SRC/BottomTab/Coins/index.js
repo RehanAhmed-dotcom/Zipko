@@ -28,7 +28,7 @@ import RButton from '../../Components/RButton';
 import Styles from './Style';
 import {useStripe} from '@stripe/stripe-react-native';
 import {userAuthorize} from '../../redux/actions';
-import { Alert } from 'react-native';
+import {Alert} from 'react-native';
 
 const Coins = ({navigation}) => {
   const dispatch = useDispatch();
@@ -109,9 +109,7 @@ const Coins = ({navigation}) => {
     });
     return unsubscribe;
   }, [navigation]);
-  useEffect(()=>{
-
-  })
+  useEffect(() => {});
   const getYourIngo = async () => {
     await getCoinsAcrtiveinfo({Auth: userData.userdata.api_token})
       .then(res => {
@@ -208,20 +206,23 @@ const Coins = ({navigation}) => {
       });
   };
   // console.log("moment",)
-  const GiftCoin = ()=>{
-DailyCoins({Auth: userData.userdata.api_token,date:moment().format("YYYY-MM-DD")})
-.then(res => {
-  console.log('Response of daily coin', res);
-  if (res.status == 'success') {
-  Alert.alert("Purchased",res.message);
-  getYourIngo();
-  }
-})
-.catch(error => {
-  getYourIngo();
-  console.log('Error in post Coin', error.response.message);
-});
-  }
+  const GiftCoin = () => {
+    DailyCoins({
+      Auth: userData.userdata.api_token,
+      date: moment().format('YYYY-MM-DD'),
+    })
+      .then(res => {
+        console.log('Response of daily coin', res);
+        if (res.status == 'success') {
+          Alert.alert('Daily Coins', res.message);
+          getYourIngo();
+        }
+      })
+      .catch(error => {
+        getYourIngo();
+        console.log('Error in post Coin', error.response.message);
+      });
+  };
   return (
     <ImageBackground
       source={require('../../Assests/bg1.png')}
@@ -236,9 +237,7 @@ DailyCoins({Auth: userData.userdata.api_token,date:moment().format("YYYY-MM-DD")
               <Text style={Styles.textrs1}>BALANCE</Text>
               <TouchableOpacity
                 onPress={() => {
-                  datas == 0
-                    ? GiftCoin()
-                    : setpurchasecoin(true);
+                  datas == 0 ? GiftCoin() : setpurchasecoin(true);
                 }}
                 style={Styles.touchpurch}>
                 <Text style={Styles.textrs2}>PURCHASE COINS</Text>
